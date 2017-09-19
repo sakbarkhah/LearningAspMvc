@@ -18,6 +18,13 @@ namespace LearningAspMvc
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            //For StudentController > Search
+            //routes.MapRoute(
+            //    "SelectorDemo",
+            //    "SelectorDemo/{name}",
+            //    defaults : new { controller = "SelectorDemo", action = "Search", name = UrlParameter.Optional}
+            //);
         }
     }
 }
