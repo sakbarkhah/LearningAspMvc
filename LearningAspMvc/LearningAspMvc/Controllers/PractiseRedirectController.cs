@@ -30,7 +30,6 @@ namespace LearningAspMvc.Controllers
            else
                 return View();               
         }
-        [NonAction]
         private HttpCookie CreateLinkCookie()
         {
             HttpCookie LinkCookie = new HttpCookie("LinkCookie", "0");
