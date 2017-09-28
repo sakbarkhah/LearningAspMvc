@@ -17,10 +17,7 @@ namespace LearningAspMvc.Models
 
     public class StudentDBContext : DbContext
     {
-        public StudentDBContext()
-        {
-                
-        }
+        public StudentDBContext() {}
         public DbSet<Student> Students { get; set; }
     }
 }

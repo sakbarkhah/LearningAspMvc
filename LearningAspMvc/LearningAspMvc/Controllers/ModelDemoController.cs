@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Net;
 
 namespace LearningAspMvc.Controllers
 {
@@ -41,9 +42,16 @@ namespace LearningAspMvc.Controllers
         }
 
         // GET: ModelDemo/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var student = db.Set<Student>().Find(id);
+            if (student == null)
+                return HttpNotFound();
+
+            return View(student);
         }
 
         // GET: ModelDemo/Create
@@ -67,7 +75,7 @@ namespace LearningAspMvc.Controllers
                 db.Students.Add(stu);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return View("Index");
             }
             catch
             {
@@ -76,9 +84,15 @@ namespace LearningAspMvc.Controllers
         }
 
         // GET: ModelDemo/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            var student = db.Set<Student>().Single(stu => stu.Id == id);
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var student = db.Set<Student>().Find(id);
+            if (student == null)
+                return HttpNotFound();
+
             return View(student);
         }
 
@@ -88,11 +102,11 @@ namespace LearningAspMvc.Controllers
         {
             try
             {
-                var Student = db.Set<Student>().Single(student => student.Id == id);
+                var Student = db.Set<Student>().Find(id);
                 if(TryUpdateModel(Student))
                 {
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return View("Index");
                 }
                 return View(Student);
             }
@@ -103,18 +117,31 @@ namespace LearningAspMvc.Controllers
         }
 
         // GET: ModelDemo/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var student = db.Set<Student>().Find(id);
+            if (student == null)
+                return HttpNotFound();
+
+            return View(student);
         }
 
         // POST: ModelDemo/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, Student stu)
         {
             try
             {
-                // TODO: Add delete logic here
+                var student = db.Set<Student>().Find(id);
+                if (student == null)
+                    return HttpNotFound();
+
+                db.Set<Student>().Remove(student);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }

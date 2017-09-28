@@ -107,6 +107,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Views\ModelDemo\Edit.cshtml" />
+    <Content Include="Views\ModelDemo\Delete.cshtml" />
+    <Content Include="Views\ModelDemo\Details.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
